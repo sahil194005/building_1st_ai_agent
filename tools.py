@@ -1,77 +1,97 @@
-from google import genai
-
-
 tools = [
-    genai.types.Tool(
-        function_declarations=[
-            genai.types.FunctionDeclaration(
-                name="calculate_return_on_investment",
-                description="Calculate ROI percentage from investment and return amount. Use when user asks about profit percentage or investment performance.",
-                parameters={
-                    "type": "object",
-                    "properties": {
-                        "investment": {
-                            "type": "number",
-                            "description": "Initial money invested",
-                        },
-                        "return_amount": {
-                            "type": "number",
-                            "description": "Final value received after investment",
-                        },
+    {
+        "type": "function",
+        "function": {
+            "name": "calculate_return_on_investment",
+            "description": "Calculate ROI percentage from investment and return amount. Use when user asks about profit percentage or investment performance.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "investment": {
+                        "type": "number",
+                        "description": "Initial money invested",
                     },
-                    "required": ["investment", "return_amount"],
-                },
-            ),
-            genai.types.FunctionDeclaration(
-                name="add_numbers",
-                description="Add two numbers",
-                parameters={
-                    "type": "object",
-                    "properties": {
-                        "a": {"type": "number"},
-                        "b": {"type": "number"},
+                    "return_amount": {
+                        "type": "number",
+                        "description": "Final value received after investment",
                     },
-                    "required": ["a", "b"],
                 },
-            ),
-            genai.types.FunctionDeclaration(
-                name="multiply_numbers",
-                description="Multiply two numbers",
-                parameters={
-                    "type": "object",
-                    "properties": {
-                        "a": {"type": "number"},
-                        "b": {"type": "number"},
+                "required": ["investment", "return_amount"],
+            },
+        },
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "add_numbers",
+            "description": "Add two numbers and return the sum. Use when the user asks for arithmetic addition of two values.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "a": {"type": "number", "description": "First addend"},
+                    "b": {"type": "number", "description": "Second addend"},
+                },
+                "required": ["a", "b"],
+            },
+        },
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "multiply_numbers",
+            "description": "Multiply two numbers together. Use when the user asks for a product or scaling of values.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "a": {"type": "number", "description": "First factor"},
+                    "b": {"type": "number", "description": "Second factor"},
+                },
+                "required": ["a", "b"],
+            },
+        },
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "get_stock_price",
+            "description": "Get the  price of a stock . Use when the user asks for the  price of a stock like AAPL or TSLA.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "symbol": {
+                        "type": "string",
+                        "description": "Ticker symbol of the stock",
                     },
-                    "required": ["a", "b"],
                 },
-            ),
-            genai.types.FunctionDeclaration(
-                name="get_stock_price",
-                description="Get the current price of a stock",
-                parameters={
-                    "type": "object",
-                    "properties": {
-                        "symbol": {"type": "string"},
+                "required": ["symbol"],
+            },
+        },
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "convert_currency",
+            "description": "Convert an amount from one currency to another using a mock exchange rate. Use when the user requests currency conversion like USD to EUR.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "amount": {
+                        "type": "number",
+                        "description": "Amount to convert",
                     },
-                    "required": ["symbol"],
-                },
-            ),
-            genai.types.FunctionDeclaration(
-                name="convert_currency",
-                description="Convert currency from one type to another",
-                parameters={
-                    "type": "object",
-                    "properties": {
-                        "amount": {"type": "number"},
-                        "from_currency": {"type": "string"},
-                        "to_currency": {"type": "string"},
+                    "from_currency": {
+                        "type": "string",
+                        "description": "Source currency code (e.g., USD)",
                     },
-                    "required": ["amount", "from_currency", "to_currency"],
+                    "to_currency": {
+                        "type": "string",
+                        "description": "Target currency code (e.g., EUR)",
+                    },
                 },
-            ),
-        ],
-    ),
+                "required": ["amount", "from_currency", "to_currency"],
+            },
+        },
+    },
 ]
 
 
@@ -93,9 +113,13 @@ def calculate_return_on_investment(investment: float, return_amount: float):
 def get_stock_price(symbol: str):
     # Placeholder implementation, in real case this would call an API
     stock_prices = {
-        "AAPL": 150.00,
-        "GOOGL": 2800.00,
-        "AMZN": 3400.00,
+        "AAPL": 182.34,
+        "TSLA": 178.21,
+        "GOOGL": 141.90,
+        "AMZN": 172.55,
+        "MSFT": 410.12,
+        "META": 485.33,
+        "NVDA": 900.21,
     }
     return stock_prices.get(symbol.upper(), "Stock symbol not found")
 

@@ -7,13 +7,13 @@ class ROIInput(BaseModel):
 
 
 class AddNumbersInput(BaseModel):
-    a: float
-    b: float
+    a: float = Field(..., description="First addend")
+    b: float = Field(..., description="Second addend")
 
 
 class MultiplyNumbersInput(BaseModel):
-    a: float
-    b: float
+    a: float = Field(..., description="First factor")
+    b: float = Field(..., description="Second factor")
 
 
 class StockPriceInput(BaseModel):
@@ -21,6 +21,6 @@ class StockPriceInput(BaseModel):
 
 
 class CurrencyConvertInput(BaseModel):
-    amount: float = Field(..., gt=0)
-    from_currency: str
-    to_currency: str
+    amount: float = Field(..., gt=0, description="Amount to convert")
+    from_currency: str = Field(..., min_length=1, description="Source currency code")
+    to_currency: str = Field(..., min_length=1, description="Target currency code")

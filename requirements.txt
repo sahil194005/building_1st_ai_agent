@@ -1,5 +1,5 @@
 fastapi
 uvicorn[standard]
 python-dotenv
-google-genai
+ollama>=0.3.0
 pydantic

@@ -53,6 +53,37 @@ tools = [
     {
         "type": "function",
         "function": {
+            "name": "subtract_numbers",
+            "description": "Subtract two numbers and return the difference. Use when the user asks for arithmetic subtraction of two values.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "a": {"type": "number", "description": "Minuend"},
+                    "b": {"type": "number", "description": "Subtrahend"},
+                },
+                "required": ["a", "b"],
+            },
+        },
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "calculate_percentage_difference",
+            "description": "Calculate the percentage difference between two values. Use when the user asks to compare two quantities and find the relative change.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "a": {"type": "number", "description": "First value"},
+                    "b": {"type": "number", "description": "Second value"},
+                },
+                "required": ["a", "b"],
+            },
+        },
+    },
+    
+    {
+        "type": "function",
+        "function": {
             "name": "get_stock_price",
             "description": "Get the  price of a stock . Use when the user asks for the  price of a stock like AAPL or TSLA.",
             "parameters": {
@@ -102,6 +133,15 @@ def add_numbers(a: float, b: float):
 def multiply_numbers(a: float, b: float):
     return a * b
 
+def subtract_numbers(a: float, b: float):
+    return a - b
+
+def calculate_percentage_difference(a: float, b: float):
+    if a == 0:
+        raise ValueError("First value cannot be zero for percentage difference calculation")
+    difference = abs(a - b)
+    percentage_diff = (difference / abs(a)) * 100
+    return percentage_diff
 
 def calculate_return_on_investment(investment: float, return_amount: float):
     if return_amount < investment:
@@ -144,4 +184,6 @@ TOOL_FUNCS = {
     "calculate_return_on_investment": calculate_return_on_investment,
     "get_stock_price": get_stock_price,
     "convert_currency": convert_currency,
+    "subtract_numbers": subtract_numbers,
+    "calculate_percentage_difference": calculate_percentage_difference,
 }

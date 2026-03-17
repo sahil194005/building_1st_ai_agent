@@ -18,9 +18,16 @@ FINAL_ANSWER: <answer>
 If you receive a tool result (Observation), use it to produce the final answer unless another tool is required.
 """
 
+def ask_llm(messages: list, tools: list):
+    response = chat(
+        model="qwen2.5",
+        messages=messages,
+        tools=tools,
+    )
+    return response
 
 
-def ask_llm(user_query: str, tools: list, max_steps: int = 3):
+def simulate_agent(user_query: str, tools: list, max_steps: int = 7):
     step = 0
     try:
 
@@ -33,12 +40,7 @@ def ask_llm(user_query: str, tools: list, max_steps: int = 3):
 
             print(f"\n--- Agent Step {step+1} ---")
 
-            response = chat(
-                model="qwen2.5",
-                messages=messages,
-                tools=tools,
-                )
-
+            response = ask_llm(messages, tools)
             # -------------------------
             # TOOL CALL
             # -------------------------

@@ -23,6 +23,10 @@ def validate_arguments(tool_name: str, arguments: dict):
         return StockPriceInput(**arguments)
     elif tool_name == "convert_currency":
         return CurrencyConvertInput(**arguments)
+    elif tool_name == "subtract_numbers":
+        return SubtractNumbersInput(**arguments)
+    elif tool_name == "calculate_percentage_difference":
+        return PercentageDifferenceInput(**arguments)
     else:
         raise ValueError(f"Unknown tool: {tool_name}")
 

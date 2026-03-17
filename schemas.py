@@ -24,3 +24,11 @@ class CurrencyConvertInput(BaseModel):
     amount: float = Field(..., gt=0, description="Amount to convert")
     from_currency: str = Field(..., min_length=1, description="Source currency code")
     to_currency: str = Field(..., min_length=1, description="Target currency code")
+
+class SubtractNumbersInput(BaseModel):
+    a: float = Field(..., description="Minuend")
+    b: float = Field(..., description="Subtrahend")
+    
+class PercentageDifferenceInput(BaseModel):
+    a: float = Field(..., description="First value")
+    b: float = Field(..., description="Second value")  
